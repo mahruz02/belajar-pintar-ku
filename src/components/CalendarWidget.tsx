@@ -162,7 +162,7 @@ export function CalendarWidget() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="flex items-center justify-center h-32">
+          <div className="flex items-center justify-center h-64">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
           </div>
         </CardContent>
@@ -172,19 +172,19 @@ export function CalendarWidget() {
 
   return (
     <>
-      <Card className="shadow-card border-0">
+      <Card className="shadow-card border-0 hover:shadow-elegant transition-all duration-300 animate-fade-in">
         <CardHeader className="pb-3">
           <CardTitle className="flex items-center gap-2 text-lg">
             <CalendarIcon className="h-5 w-5 text-primary" />
             Kalender
           </CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-4">
           <Calendar
             mode="single"
             selected={selectedDate}
             onSelect={handleDateSelect}
-            className="rounded-lg border-0 p-0 pointer-events-auto"
+            className="rounded-lg border-0 p-0 pointer-events-auto w-full"
             modifiers={{
               hasEvents: (date) => hasEventsOnDate(date),
             }}
@@ -198,7 +198,7 @@ export function CalendarWidget() {
                   <div className="relative w-full h-full">
                     <button
                       {...props}
-                      className={`w-full h-full text-center hover:bg-accent hover:text-accent-foreground rounded-md transition-colors ${getDateClassName(date)}`}
+                      className={`w-full h-full text-center hover:bg-accent hover:text-accent-foreground rounded-md transition-all duration-200 text-sm sm:text-base ${getDateClassName(date)}`}
                     >
                       {date.getDate()}
                       {dayEvents.length > 0 && (
@@ -207,7 +207,8 @@ export function CalendarWidget() {
                             {dayEvents.slice(0, 3).map((_, index) => (
                               <div
                                 key={index}
-                                className="w-1 h-1 rounded-full bg-current opacity-80"
+                                className="w-1 h-1 rounded-full bg-current opacity-80 animate-scale-in"
+                                style={{ animationDelay: `${index * 0.1}s` }}
                               />
                             ))}
                           </div>
@@ -221,7 +222,7 @@ export function CalendarWidget() {
           />
           
           {/* Mini legend */}
-          <div className="mt-3 space-y-1 text-xs">
+          <div className="mt-4 space-y-2 text-xs">
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 rounded bg-primary/30"></div>
               <span className="text-muted-foreground">Mata Pelajaran</span>
