@@ -33,10 +33,10 @@ export function AppSidebar() {
               <BookOpen className="h-4 w-4 text-primary-foreground" />
             </div>
             <div>
-              <h2 className="font-bold text-lg text-sidebar-foreground">
+              <h2 className="font-bold text-lg text-black">
                 Belajar Pintar
               </h2>
-              <p className="text-xs text-sidebar-foreground/70">Student Portal</p>
+              <p className="text-xs text-black/70">Student Portal</p>
             </div>
           </div>
         )}
@@ -44,7 +44,7 @@ export function AppSidebar() {
 
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel className="text-sidebar-foreground font-medium">Menu Utama</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-black font-medium">Menu Utama</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {menuItems.map((item) => (
@@ -56,8 +56,8 @@ export function AppSidebar() {
                       className={({ isActive }) =>
                         `flex items-center gap-3 px-3 py-2 rounded-lg transition-all text-black ${
                           isActive
-                            ? "bg-sidebar-primary text-sidebar-primary-foreground shadow-md"
-                            : "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+                            ? "bg-sidebar-primary shadow-md"
+                            : "hover:bg-sidebar-accent"
                         }`
                       }
                     >
