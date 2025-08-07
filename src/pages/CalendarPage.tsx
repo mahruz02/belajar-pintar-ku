@@ -153,10 +153,10 @@ export default function CalendarPage() {
     const hasTasks = dayEvents.some(e => e.type === "task" && !(e.data as Task).is_completed);
     const hasCompletedTasks = dayEvents.some(e => e.type === "task" && (e.data as Task).is_completed);
     
-    if (hasSubjects && hasTasks) return "bg-gradient-to-br from-primary/20 to-warning/20";
-    if (hasSubjects) return "bg-primary/20";
-    if (hasTasks) return "bg-warning/20";
-    if (hasCompletedTasks) return "bg-success/20";
+    if (hasSubjects && hasTasks) return "bg-gradient-to-br from-primary/30 to-warning/30 hover:from-primary/40 hover:to-warning/40";
+    if (hasSubjects) return "bg-primary/30 hover:bg-primary/40";
+    if (hasTasks) return "bg-warning/30 hover:bg-warning/40";
+    if (hasCompletedTasks) return "bg-success/30 hover:bg-success/40";
     
     return "";
   };
@@ -198,7 +198,7 @@ export default function CalendarPage() {
                 mode="single"
                 selected={selectedDate}
                 onSelect={handleDateSelect}
-                className="rounded-md border"
+                className="rounded-lg border-0 pointer-events-auto"
                 modifiers={{
                   hasEvents: (date) => hasEventsOnDate(date),
                 }}
@@ -212,16 +212,16 @@ export default function CalendarPage() {
                       <div className="relative w-full h-full">
                         <button
                           {...props}
-                          className={`w-full h-full ${getDateClassName(date)}`}
+                          className={`w-full h-full text-center hover:bg-accent hover:text-accent-foreground rounded-md transition-colors ${getDateClassName(date)}`}
                         >
                           {date.getDate()}
                           {dayEvents.length > 0 && (
-                            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2">
-                              <div className="flex gap-1">
+                            <div className="absolute bottom-0.5 left-1/2 transform -translate-x-1/2">
+                              <div className="flex gap-0.5">
                                 {dayEvents.slice(0, 3).map((_, index) => (
                                   <div
                                     key={index}
-                                    className="w-1 h-1 rounded-full bg-current opacity-60"
+                                    className="w-1.5 h-1.5 rounded-full bg-current opacity-80"
                                   />
                                 ))}
                               </div>
@@ -331,19 +331,19 @@ export default function CalendarPage() {
             </CardHeader>
             <CardContent className="space-y-2">
               <div className="flex items-center gap-2 text-sm">
-                <div className="w-4 h-4 rounded bg-primary/20"></div>
+                <div className="w-4 h-4 rounded bg-primary/30"></div>
                 <span>Mata Pelajaran</span>
               </div>
               <div className="flex items-center gap-2 text-sm">
-                <div className="w-4 h-4 rounded bg-warning/20"></div>
+                <div className="w-4 h-4 rounded bg-warning/30"></div>
                 <span>Tugas Belum Selesai</span>
               </div>
               <div className="flex items-center gap-2 text-sm">
-                <div className="w-4 h-4 rounded bg-success/20"></div>
+                <div className="w-4 h-4 rounded bg-success/30"></div>
                 <span>Tugas Selesai</span>
               </div>
               <div className="flex items-center gap-2 text-sm">
-                <div className="w-4 h-4 rounded bg-gradient-to-br from-primary/20 to-warning/20"></div>
+                <div className="w-4 h-4 rounded bg-gradient-to-br from-primary/30 to-warning/30"></div>
                 <span>Mata Pelajaran + Tugas</span>
               </div>
             </CardContent>

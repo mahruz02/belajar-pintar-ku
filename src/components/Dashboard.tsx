@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Plus, Clock, BookOpen, CheckCircle2, AlertCircle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { CalendarWidget } from "@/components/CalendarWidget";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { format, isToday, isTomorrow, parseISO } from "date-fns";
@@ -28,11 +29,6 @@ interface Task {
   subjects?: { name: string; color: string };
 }
 
-const priorityColors = {
-  1: "bg-secondary text-secondary-foreground",
-  2: "bg-warning text-warning-foreground",
-  3: "bg-destructive text-destructive-foreground"
-};
 
 const priorityLabels = {
   1: "Rendah",
@@ -173,7 +169,12 @@ export function Dashboard() {
           </Button>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+          {/* Calendar Widget */}
+          <div className="lg:col-span-1">
+            <CalendarWidget />
+          </div>
+
           {/* Today's Schedule */}
           <Card className="shadow-card border-0">
             <CardHeader className="pb-3">
@@ -272,7 +273,7 @@ export function Dashboard() {
                   Tidak ada tugas mendatang
                 </p>
               ) : (
-                upcomingTasks.slice(0, 5).map((task) => (
+                upcomingTasks.slice(0, 4).map((task) => (
                   <div
                     key={task.id}
                     className="flex items-start gap-3 p-3 rounded-lg border bg-card/50 hover:bg-card transition-colors group"
@@ -292,7 +293,8 @@ export function Dashboard() {
                       
                       <div className="flex items-center gap-2 mt-1">
                         <Badge
-                          className={`text-xs ${priorityColors[task.priority as keyof typeof priorityColors]}`}
+                          variant={task.priority === 3 ? "priority-high" : task.priority === 2 ? "priority-medium" : "priority-low"}
+                          className="text-xs"
                         >
                           {priorityLabels[task.priority as keyof typeof priorityLabels]}
                         </Badge>
