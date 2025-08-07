@@ -35,8 +35,16 @@ All colors MUST be HSL.
     --success-glow: 142 76% 50%;
 
     --warning: 38 92% 50%;
-    --warning-foreground: 48 96% 89%;
+    --warning-foreground: 26 83% 14%;
     --warning-glow: 38 92% 65%;
+    
+    /* Priority colors with good contrast */
+    --priority-low: 200 95% 47%;
+    --priority-low-foreground: 200 100% 27%;
+    --priority-medium: 38 92% 50%;
+    --priority-medium-foreground: 26 83% 14%;
+    --priority-high: 0 84% 60%;
+    --priority-high-foreground: 210 40% 98%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;

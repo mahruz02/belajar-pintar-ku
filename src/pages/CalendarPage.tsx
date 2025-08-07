@@ -300,17 +300,17 @@ export default function CalendarPage() {
                                   {task.title}
                                 </p>
                                 <div className="flex items-center gap-1 mt-1">
-                                  <Badge
-                                    variant={task.priority === 3 ? "destructive" : task.priority === 2 ? "default" : "secondary"}
-                                    className="text-xs"
-                                  >
-                                    {task.priority === 3 ? "Tinggi" : task.priority === 2 ? "Sedang" : "Rendah"}
-                                  </Badge>
-                                  {task.is_completed && (
-                                    <Badge variant="outline" className="text-xs">
-                                      Selesai
-                                    </Badge>
-                                  )}
+                                   <Badge
+                                     variant={task.priority === 3 ? "priority-high" : task.priority === 2 ? "priority-medium" : "priority-low"}
+                                     className="text-xs"
+                                   >
+                                     {task.priority === 3 ? "Tinggi" : task.priority === 2 ? "Sedang" : "Rendah"}
+                                   </Badge>
+                                   {task.is_completed && (
+                                     <Badge variant="success" className="text-xs">
+                                       Selesai
+                                     </Badge>
+                                   )}
                                 </div>
                               </div>
                             </div>

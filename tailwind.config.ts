@@ -43,6 +43,14 @@ export default {
 					foreground: 'hsl(var(--warning-foreground))',
 					glow: 'hsl(var(--warning-glow))'
 				},
+				priority: {
+					low: 'hsl(var(--priority-low))',
+					'low-foreground': 'hsl(var(--priority-low-foreground))',
+					medium: 'hsl(var(--priority-medium))',
+					'medium-foreground': 'hsl(var(--priority-medium-foreground))',
+					high: 'hsl(var(--priority-high))',
+					'high-foreground': 'hsl(var(--priority-high-foreground))'
+				},
 				destructive: {
 					DEFAULT: 'hsl(var(--destructive))',
 					foreground: 'hsl(var(--destructive-foreground))'
