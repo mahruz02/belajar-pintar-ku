@@ -79,7 +79,7 @@ export function TaskForm({ task, subjects, onSuccess, onCancel }: TaskFormProps)
       const taskData = {
         title: data.title,
         description: data.description || null,
-        subject_id: data.subject_id || null,
+        subject_id: data.subject_id === "none" ? null : data.subject_id || null,
         due_date: data.due_date.toISOString().split('T')[0],
         priority: parseInt(data.priority),
         user_id: (await supabase.auth.getUser()).data.user?.id,
@@ -171,7 +171,7 @@ export function TaskForm({ task, subjects, onSuccess, onCancel }: TaskFormProps)
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="">Tidak ada mata pelajaran</SelectItem>
+                  <SelectItem value="none">Tidak ada mata pelajaran</SelectItem>
                   {subjects.map((subject) => (
                     <SelectItem key={subject.id} value={subject.id}>
                       <div className="flex items-center gap-2">

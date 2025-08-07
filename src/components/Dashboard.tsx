@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { format, isToday, isTomorrow, parseISO } from "date-fns";
-import { id } from "date-fns/locale";
+import { useNavigate } from "react-router-dom";
 
 interface Subject {
   id: string;
@@ -48,6 +48,7 @@ export function Dashboard() {
   const [upcomingTasks, setUpcomingTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const today = new Date();
   const tomorrow = new Date(today);
@@ -141,7 +142,7 @@ export function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-subtle p-4 md:p-6">
+    <div className="space-y-6">
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Header */}
         <div className="text-center space-y-2">
@@ -155,11 +156,18 @@ export function Dashboard() {
 
         {/* Quick Actions */}
         <div className="flex flex-wrap gap-4 justify-center">
-          <Button className="bg-gradient-primary hover:opacity-90 shadow-elegant">
+          <Button 
+            className="bg-gradient-primary hover:opacity-90 shadow-elegant"
+            onClick={() => navigate("/subjects")}
+          >
             <Plus className="mr-2 h-4 w-4" />
             Tambah Mata Pelajaran
           </Button>
-          <Button variant="outline" className="border-primary/20 hover:bg-primary/5">
+          <Button 
+            variant="outline" 
+            className="border-primary/20 hover:bg-primary/5"
+            onClick={() => navigate("/tasks")}
+          >
             <Plus className="mr-2 h-4 w-4" />
             Tambah Tugas
           </Button>
