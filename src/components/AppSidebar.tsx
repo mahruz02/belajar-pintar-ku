@@ -25,12 +25,12 @@ export function AppSidebar() {
   const location = useLocation();
 
   return (
-    <Sidebar className={state === "collapsed" ? "w-14" : "w-64"} collapsible="icon">
+    <Sidebar className={`${state === "collapsed" ? "w-14" : "w-64"} bg-gradient-sidebar`} collapsible="icon">
       <SidebarHeader className="border-b border-sidebar-border p-4">
         {state !== "collapsed" && (
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-gradient-primary flex items-center justify-center">
-              <BookOpen className="h-4 w-4 text-primary-foreground" />
+            <div className="w-8 h-8 rounded-lg bg-white/20 backdrop-blur-sm flex items-center justify-center">
+              <BookOpen className="h-4 w-4 text-white" />
             </div>
             <div>
               <h2 className="font-bold text-lg text-sidebar-foreground">

@@ -114,7 +114,8 @@ export default {
 			backgroundImage: {
 				'gradient-primary': 'var(--gradient-primary)',
 				'gradient-success': 'var(--gradient-success)',
-				'gradient-subtle': 'var(--gradient-subtle)'
+				'gradient-subtle': 'var(--gradient-subtle)',
+				'gradient-sidebar': 'var(--gradient-sidebar)'
 			},
 			boxShadow: {
 				'elegant': 'var(--shadow-elegant)',
