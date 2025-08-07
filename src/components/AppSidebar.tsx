@@ -26,17 +26,17 @@ export function AppSidebar() {
 
   return (
     <Sidebar className={state === "collapsed" ? "w-14" : "w-64"} collapsible="icon">
-      <SidebarHeader className="border-b border-border/50 p-4">
+      <SidebarHeader className="border-b border-sidebar-border p-4">
         {state !== "collapsed" && (
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-lg bg-gradient-primary flex items-center justify-center">
               <BookOpen className="h-4 w-4 text-primary-foreground" />
             </div>
             <div>
-              <h2 className="font-bold text-lg bg-gradient-primary bg-clip-text text-transparent">
+              <h2 className="font-bold text-lg text-sidebar-foreground">
                 Belajar Pintar
               </h2>
-              <p className="text-xs text-muted-foreground">Student Portal</p>
+              <p className="text-xs text-sidebar-foreground/60">Student Portal</p>
             </div>
           </div>
         )}
@@ -44,7 +44,7 @@ export function AppSidebar() {
 
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Menu Utama</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-sidebar-foreground/80">Menu Utama</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {menuItems.map((item) => (
@@ -56,8 +56,8 @@ export function AppSidebar() {
                       className={({ isActive }) =>
                         `flex items-center gap-3 px-3 py-2 rounded-lg transition-all ${
                           isActive
-                            ? "bg-primary text-primary-foreground shadow-md"
-                            : "hover:bg-accent hover:text-accent-foreground"
+                            ? "bg-sidebar-primary text-sidebar-primary-foreground shadow-md"
+                            : "text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
                         }`
                       }
                     >
