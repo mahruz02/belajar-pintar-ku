@@ -36,7 +36,7 @@ export function AppSidebar() {
               <h2 className="font-bold text-lg text-sidebar-foreground">
                 Belajar Pintar
               </h2>
-              <p className="text-xs text-sidebar-foreground/60">Student Portal</p>
+              <p className="text-xs text-sidebar-foreground/70">Student Portal</p>
             </div>
           </div>
         )}
@@ -44,7 +44,7 @@ export function AppSidebar() {
 
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel className="text-sidebar-foreground/80">Menu Utama</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-sidebar-foreground font-medium">Menu Utama</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {menuItems.map((item) => (

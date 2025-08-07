@@ -70,11 +70,11 @@ All colors MUST be HSL.
     --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-foreground: 224 71% 4%;
     --sidebar-primary: 221 83% 53%;
     --sidebar-primary-foreground: 210 40% 98%;
     --sidebar-accent: 220 14% 96%;
-    --sidebar-accent-foreground: 220 9% 46%;
+    --sidebar-accent-foreground: 224 71% 4%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 221 83% 53%;
   }
