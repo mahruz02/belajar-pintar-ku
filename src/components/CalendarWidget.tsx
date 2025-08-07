@@ -198,19 +198,32 @@ export function CalendarWidget() {
                   <div className="relative w-full h-full">
                     <button
                       {...props}
-                      className={`w-full h-full text-center hover:bg-accent hover:text-accent-foreground rounded-md transition-all duration-200 text-sm sm:text-base ${getDateClassName(date)}`}
+                      onClick={() => handleDateSelect(date)}
+                      className={`w-full h-full text-center hover:bg-accent hover:text-accent-foreground rounded-md transition-all duration-200 text-sm sm:text-base cursor-pointer ${getDateClassName(date)}`}
                     >
                       {date.getDate()}
                       {dayEvents.length > 0 && (
                         <div className="absolute bottom-0.5 left-1/2 transform -translate-x-1/2">
-                          <div className="flex gap-0.5">
-                            {dayEvents.slice(0, 3).map((_, index) => (
-                              <div
-                                key={index}
-                                className="w-1 h-1 rounded-full bg-current opacity-80 animate-scale-in"
-                                style={{ animationDelay: `${index * 0.1}s` }}
-                              />
-                            ))}
+                          <div className="flex gap-0.5 flex-wrap justify-center max-w-full">
+                            {dayEvents.slice(0, 4).map((event, index) => {
+                              const isSubject = event.type === "subject";
+                              const isTask = event.type === "task";
+                              const isCompleted = isTask && (event.data as Task).is_completed;
+                              
+                              return (
+                                <div
+                                  key={`${event.type}-${event.data.id}-${index}`}
+                                  className={`w-1 h-1 rounded-full animate-scale-in ${
+                                    isSubject ? 'bg-primary' :
+                                    isCompleted ? 'bg-success' : 'bg-warning'
+                                  }`}
+                                  style={{ animationDelay: `${index * 0.1}s` }}
+                                />
+                              );
+                            })}
+                            {dayEvents.length > 4 && (
+                              <div className="w-1 h-1 rounded-full bg-muted-foreground animate-scale-in" />
+                            )}
                           </div>
                         </div>
                       )}
@@ -224,12 +237,16 @@ export function CalendarWidget() {
           {/* Mini legend */}
           <div className="mt-4 space-y-2 text-xs">
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded bg-primary/30"></div>
+              <div className="w-2 h-2 rounded bg-primary"></div>
               <span className="text-muted-foreground">Mata Pelajaran</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded bg-warning/30"></div>
-              <span className="text-muted-foreground">Tugas</span>
+              <div className="w-2 h-2 rounded bg-warning"></div>
+              <span className="text-muted-foreground">Tugas Pending</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 rounded bg-success"></div>
+              <span className="text-muted-foreground">Tugas Selesai</span>
             </div>
           </div>
         </CardContent>

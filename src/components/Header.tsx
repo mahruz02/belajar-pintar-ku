@@ -1,5 +1,4 @@
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import { SearchBar } from "@/components/SearchBar";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -47,7 +46,6 @@ export function Header() {
         </div>
         
         <div className="flex items-center gap-4">
-          <SearchBar />
           <div className="hidden lg:flex items-center gap-2">
             <Dialog open={subjectDialogOpen} onOpenChange={setSubjectDialogOpen}>
               <DialogTrigger asChild>
