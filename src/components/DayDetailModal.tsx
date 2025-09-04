@@ -55,15 +55,19 @@ export function DayDetailModal({ date, events, onClose }: DayDetailModalProps) {
 
   const subjects = events.filter(e => e.type === "subject").map(e => e.data as Subject);
   const allTasks = events.filter(e => e.type === "task").map(e => e.data as Task);
-  
-  // Group tasks by subject
-  const tasksWithSubjects = allTasks.filter(task => task.subjects);
-  const tasksWithoutSubjects = allTasks.filter(task => !task.subjects);
-  
-  // Group subjects with their tasks
+
+  // Ambil nama subject yang ada di hari ini
+  const subjectNamesForDay = subjects.map(s => s.name);
+
+  // Tugas tanpa subject ATAU subject-nya tidak ada di hari ini
+  const tasksWithoutSubjects = allTasks.filter(
+    task => !task.subjects || !subjectNamesForDay.includes(task.subjects.name)
+  );
+
+  // Group tasks by subject (hanya yang subject-nya ada di hari ini)
   const subjectsWithTasks = subjects.map(subject => ({
     subject,
-    tasks: tasksWithSubjects.filter(task => task.subjects?.name === subject.name)
+    tasks: allTasks.filter(task => task.subjects?.name === subject.name)
   }));
 
   const toggleTaskComplete = async (task: Task) => {
@@ -242,7 +246,7 @@ export function DayDetailModal({ date, events, onClose }: DayDetailModalProps) {
           <div>
             <h3 className="font-semibold text-lg mb-3 flex items-center gap-2">
               <CheckCircle2 className="h-5 w-5 text-warning" />
-              Tugas Mandiri ({tasksWithoutSubjects.length})
+              Tugas ({tasksWithoutSubjects.length})
             </h3>
             <div className="space-y-3">
               {tasksWithoutSubjects
@@ -277,6 +281,12 @@ export function DayDetailModal({ date, events, onClose }: DayDetailModalProps) {
                             {task.is_completed && (
                               <Badge variant="success">
                                 Selesai
+                              </Badge>
+                            )}
+                            {/* Jika ada subject, tampilkan nama dan warna subject */}
+                            {task.subjects && (
+                              <Badge style={{ backgroundColor: task.subjects.color }} className="text-xs">
+                                {task.subjects.name}
                               </Badge>
                             )}
                           </div>

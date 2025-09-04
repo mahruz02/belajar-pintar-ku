@@ -53,9 +53,9 @@ interface TaskFormProps {
 }
 
 const priorityOptions = [
-  { value: "1", label: "Rendah", color: "text-secondary-foreground" },
-  { value: "2", label: "Sedang", color: "text-warning-foreground" },
-  { value: "3", label: "Tinggi", color: "text-destructive-foreground" },
+  { value: "1", label: "Rendah", color: "text-blue-600" },
+  { value: "2", label: "Sedang", color: "text-yellow-500" },
+  { value: "3", label: "Tinggi", color: "text-red-600" },
 ];
 
 export function TaskForm({ task, subjects, onSuccess, onCancel }: TaskFormProps) {
@@ -76,11 +76,15 @@ export function TaskForm({ task, subjects, onSuccess, onCancel }: TaskFormProps)
   const onSubmit = async (data: TaskFormData) => {
     setLoading(true);
     try {
+      // Format due_date sebagai yyyy-MM-dd tanpa timezone offset
+      const pad = (n: number) => n.toString().padStart(2, "0");
+      const localDate = `${data.due_date.getFullYear()}-${pad(data.due_date.getMonth() + 1)}-${pad(data.due_date.getDate())}`;
+
       const taskData = {
         title: data.title,
         description: data.description || null,
         subject_id: data.subject_id === "none" ? null : data.subject_id || null,
-        due_date: data.due_date.toISOString().split('T')[0],
+        due_date: localDate,
         priority: parseInt(data.priority),
         user_id: (await supabase.auth.getUser()).data.user?.id,
       };
@@ -246,7 +250,14 @@ export function TaskForm({ task, subjects, onSuccess, onCancel }: TaskFormProps)
                   {priorityOptions.map((option) => (
                     <div key={option.value} className="flex items-center space-x-2">
                       <RadioGroupItem value={option.value} id={option.value} />
-                      <Label htmlFor={option.value} className={option.color}>
+                      <Label
+                        htmlFor={option.value}
+                        className={option.color + " font-bold px-3 py-1 rounded shadow-sm transition-all duration-200 text-base bg-white border border-gray-200 hover:scale-105"}
+                        style={{
+                          boxShadow: '0 2px 8px rgba(0,0,0,0.07)',
+                          letterSpacing: '0.5px',
+                        }}
+                      >
                         {option.label}
                       </Label>
                     </div>

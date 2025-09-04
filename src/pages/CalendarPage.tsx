@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { DayDetailModal } from "@/components/DayDetailModal";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
-import { CalendarIcon, Clock, CheckSquare, BookOpen } from "lucide-react";
+import { CalendarIcon, Clock, CheckSquare, BookOpen, X } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { format, isSameDay, startOfMonth, endOfMonth } from "date-fns";
@@ -43,6 +43,8 @@ export default function CalendarPage() {
   const [loading, setLoading] = useState(true);
   const [selectedDayEvents, setSelectedDayEvents] = useState<CalendarEvent[]>([]);
   const [isDayModalOpen, setIsDayModalOpen] = useState(false);
+  const [modalDate, setModalDate] = useState<Date | null>(null);
+  const [modalEvents, setModalEvents] = useState<CalendarEvent[]>([]);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -113,12 +115,13 @@ export default function CalendarPage() {
       currentDate.setDate(currentDate.getDate() + 1);
     }
 
-    // Add task events
+    // Add task events (fix timezone bug)
     tasks.forEach((task) => {
+      // Ensure the date is parsed as local date, not UTC
       events.push({
         type: "task",
         data: task,
-        date: new Date(task.due_date),
+        date: new Date(task.due_date + "T00:00:00"),
       });
     });
 
@@ -126,16 +129,16 @@ export default function CalendarPage() {
   };
 
   const getEventsForDate = (date: Date) => {
+    // Filter events for the selected date (subjects and tasks)
     return events.filter(event => isSameDay(event.date, date));
   };
 
   const handleDateSelect = (date: Date | undefined) => {
     if (!date) return;
-    
     setSelectedDate(date);
     const dayEvents = getEventsForDate(date);
     setSelectedDayEvents(dayEvents);
-    
+    // Modal detail tetap muncul meskipun hanya ada tugas
     if (dayEvents.length > 0) {
       setIsDayModalOpen(true);
     }
@@ -213,6 +216,7 @@ export default function CalendarPage() {
                         <button
                           {...props}
                           className={`w-full h-full text-center hover:bg-accent hover:text-accent-foreground rounded-md transition-colors ${getDateClassName(date)}`}
+                          onClick={() => handleDateSelect(date)}
                         >
                           {date.getDate()}
                           {dayEvents.length > 0 && (
@@ -351,7 +355,7 @@ export default function CalendarPage() {
         </div>
       </div>
 
-      {/* Day Detail Modal */}
+      {/* Day Detail Modal with Dialog */}
       <Dialog open={isDayModalOpen} onOpenChange={setIsDayModalOpen}>
         <DayDetailModal
           date={selectedDate}

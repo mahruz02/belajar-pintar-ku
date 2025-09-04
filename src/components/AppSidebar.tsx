@@ -17,7 +17,7 @@ const menuItems = [
   { title: "Dashboard", url: "/", icon: Home },
   { title: "Mata Pelajaran", url: "/subjects", icon: BookOpen },
   { title: "Tugas", url: "/tasks", icon: CheckSquare },
-  { title: "Kalender", url: "/calendar", icon: Calendar },
+  // { title: "Kalender", url: "/calendar", icon: Calendar },
 ];
 
 export function AppSidebar() {
